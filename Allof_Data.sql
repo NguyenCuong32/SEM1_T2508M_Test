@@ -1,11 +1,60 @@
-﻿-- 6. Chèn dữ liệu mẫu (Department)
+IF DB_ID(N'PayrollDB') IS NOT NULL
+BEGIN
+    ALTER DATABASE [PayrollDB] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE [PayrollDB];
+END
+GO
+
+
+CREATE DATABASE [PayrollDB];
+GO
+
+USE [PayrollDB];
+GO
+
+
+CREATE TABLE dbo.Department (
+    DepartmentCode NVARCHAR(20) PRIMARY KEY,
+    DepartmentName NVARCHAR(200) NULL
+);
+GO
+
+
+CREATE TABLE dbo.Employee (
+    EmployeeCode NVARCHAR(20) PRIMARY KEY,
+    EmployeeName NVARCHAR(200) NOT NULL,
+    DepartmentCode NVARCHAR(20) NOT NULL,
+    BasicDailySalary DECIMAL(18,2) NOT NULL,
+    CONSTRAINT FK_Employee_Department FOREIGN KEY (DepartmentCode)
+      REFERENCES dbo.Department(DepartmentCode)
+);
+GO
+
+
+CREATE TABLE dbo.PayrollRecord (
+    PayrollID INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeCode NVARCHAR(20) NOT NULL,
+    PeriodMonth INT NOT NULL,
+    PeriodYear INT NOT NULL,
+    WorkingDays INT NULL,
+    DaysOffWithPay INT NULL,
+    DaysOffWithoutPay INT NULL,
+    GrossSalary DECIMAL(18,2) NULL,
+    NetSalary DECIMAL(18,2) NULL,
+    [Note] NVARCHAR(400) NULL,
+    CONSTRAINT FK_Payroll_Employee FOREIGN KEY (EmployeeCode)
+      REFERENCES dbo.Employee(EmployeeCode)
+);
+GO
+
+
 INSERT INTO dbo.Department (DepartmentCode, DepartmentName) VALUES
 (N'IT', N'Information Technology'),
 (N'HR', N'Human Resources'),
 (N'SALE', N'Sales');
 GO
 
--- 7. Chèn dữ liệu mẫu (Employee)
+
 INSERT INTO dbo.Employee (EmployeeCode, EmployeeName, DepartmentCode, BasicDailySalary) VALUES
 (N'A1', N'Nguyễn Văn A', N'IT', 1000.00),
 (N'A2', N'Lê Thị Bình', N'IT', 1200.00),
@@ -57,4 +106,5 @@ GO
 
 
 EXEC dbo.sp_TotalSalaryByDept @Month = 10, @Year = 2025;
+
 GO
