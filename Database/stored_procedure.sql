@@ -7,17 +7,19 @@ GO
 CREATE PROCEDURE GetTotalSalariesByDepartment
 AS
 BEGIN
-    SELECT 
+    SELECT
         d.DeptID,
         d.DeptName,
-        SUM(e.Salary) AS TotalSalary
-    FROM 
+        SUM(s.Total) AS TotalSalary
+    FROM
         Department d
-    INNER JOIN 
+    INNER JOIN
         Employee e ON d.DeptID = e.DeptID
-    GROUP BY 
+    INNER JOIN
+        Salary s ON e.EmpID = s.EmpID
+    GROUP BY
         d.DeptID, d.DeptName
-    ORDER BY 
+    ORDER BY
         d.DeptID ASC;
 END;
 GO

@@ -10,49 +10,51 @@ GO
 -- Create tables
 CREATE TABLE Department (
     DeptID VARCHAR(10) PRIMARY KEY,
-    DeptName VARCHAR(50) NOT NULL,
-    DeptLocation VARCHAR(50) NOT NULL
+    DeptName NVARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Employee (
-    EmpID INT PRIMARY KEY,
-    EmpName VARCHAR(50) NOT NULL,
+    EmpID VARCHAR(10) PRIMARY KEY,
+    EmpName NVARCHAR(50) NOT NULL,
     DeptID VARCHAR(10) NOT NULL,
-    Salary DECIMAL(10,2) NOT NULL,
+    Age INT NOT NULL,
+    Gender BIT NOT NULL,
+    Status BIT NOT NULL,
     FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
 );
 
-CREATE TABLE Project (
-    ProjectID VARCHAR(10) PRIMARY KEY,
-    ProjectName VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE WorksOn (
-    EmpID INT NOT NULL,
-    ProjectID VARCHAR(10) NOT NULL,
-    PRIMARY KEY (EmpID, ProjectID),
-    FOREIGN KEY (EmpID) REFERENCES Employee(EmpID),
-    FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID)
+CREATE TABLE Salary (
+    EmpID VARCHAR(10) PRIMARY KEY,
+    Basic DECIMAL(10,2) NOT NULL,
+    Total DECIMAL(10,2) NOT NULL,
+    Net DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (EmpID) REFERENCES Employee(EmpID)
 );
 
 -- Insert data
-INSERT INTO Department (DeptID, DeptName, DeptLocation) VALUES
-('D1', 'HR', 'NY'),
-('D2', 'IT', 'CA');
+INSERT INTO Department VALUES
+('IT', 'Information Technology'),
+('HR', 'Human Resources'),
+('SALE', 'Sales Department');
 
-INSERT INTO Employee (EmpID, EmpName, DeptID, Salary) VALUES
-(1, 'John', 'D1', 50000.00),
-(2, 'Jane', 'D1', 55000.00),
-(3, 'Bob', 'D2', 60000.00),
-(4, 'Alice', 'D2', 65000.00);
+INSERT INTO Employee VALUES
+('A1', N'Nguyễn Văn A', 'IT', 22, 0, 0),
+('A2', N'Lê Thị Bình', 'IT', 21, 1, 0),
+('B1', N'Nguyễn Lan', 'HR', 20, 1, 1),
+('D1', N'Mai Tuấn Anh', 'HR', 20, 1, 1),
+('C1', N'Hà Thị Lan', 'HR', 22, 0, 0),
+('C2', N'Lê Tú Chinh', 'SALE', 22, 0, 0),
+('D2', N'Trần Văn Toàn', 'HR', 22, 0, 0),
+('A3', N'Trần Văn Nam', 'IT', 22, 0, 0),
+('B2', N'Huỳnh Anh', 'SALE', 21, 1, 0);
 
-INSERT INTO Project (ProjectID, ProjectName) VALUES
-('P1', 'ProjectA'),
-('P2', 'ProjectB'),
-('P3', 'ProjectC');
-
-INSERT INTO WorksOn (EmpID, ProjectID) VALUES
-(1, 'P1'),
-(2, 'P2'),
-(3, 'P1'),
-(4, 'P3');
+INSERT INTO Salary VALUES
+('A1', 1000, 22000, 20000),
+('A2', 1200, 26400, 23000),
+('B1', 600, 13200, 12000),
+('D1', 500, 11000, 10000),
+('C1', 500, 11000, 10000),
+('C2', 1200, 26400, 23000),
+('D2', 500, 11000, 10000),
+('A3', 1200, 26400, 23000),
+('B2', 1200, 26400, 23000);
