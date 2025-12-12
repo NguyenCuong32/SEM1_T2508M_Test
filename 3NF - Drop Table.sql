@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS SalaryCalculation;
+
+DROP TABLE IF EXISTS Attendance;
+
+DROP TABLE IF EXISTS Employee;
+
+DROP TABLE IF EXISTS Department;

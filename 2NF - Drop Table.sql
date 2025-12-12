@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS Salary;
+
+DROP TABLE IF EXISTS Employee;
+
+DROP TABLE IF EXISTS Department;
