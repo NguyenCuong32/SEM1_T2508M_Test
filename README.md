@@ -2,48 +2,53 @@
 
 Đây là giải pháp triển khai database cho bài tập DMS (Intelligent Data Management with SQL Server) dựa trên bảng lương tháng 10 của công ty ABC.
 
-## 🛠️ Cấu trúc Giải Pháp
+---
 
-Toàn bộ giải pháp nằm trong file `abc_payroll_solution.sql` và được xây dựng dựa trên nguyên tắc **Chuẩn hóa dữ liệu (3NF)** và **T-SQL** cho SQL Server.
+## PHẦN 1: ✅ Đáp Ứng Các Yêu Cầu Của Đề Bài
 
-### 1. Mô hình Quan hệ (3NF)
+Phần này mô tả cách file `abc_payroll_solution.sql` giải quyết 3 yêu cầu cốt lõi của đề bài.
 
-Database được thiết kế với 3 bảng, sử dụng quy tắc đặt tên **snake_case** và thiết lập các ràng buộc **Khóa Chính (PK)** và **Khóa Ngoại (FK)** chặt chẽ:
+### 1. Chuẩn hóa Dữ liệu (Yêu cầu 3NF)
 
-| Tên Bảng | Vai trò | Khóa Chính | Khóa Ngoại |
-| :--- | :--- | :--- | :--- |
-| `department` | Danh mục phòng ban | `department_code` | |
-| `employee` | Thông tin nhân viên cố định | `employee_code` | FK: `department_code` (tham chiếu đến `department`) |
-| `payroll_detail` | Chi tiết lương tháng 10 | `employee_code` | FK: `employee_code` (tham chiếu đến `employee`) |
+* **Mô hình Quan hệ:** Dữ liệu gốc đã được chuẩn hóa thành 3 bảng để đảm bảo tiêu chuẩn **3NF**.
+* **Cấu trúc Lương:** Các cột lương được định nghĩa là **`DECIMAL(X, 0)`** để lưu trữ các giá trị số nguyên lớn một cách chính xác.
 
-### 2. Các Bước Thực thi trong Script
+| Tên Bảng | Vai trò | Kiểu dữ liệu cột Lương | Khóa Chính | Khóa Ngoại |
+| :--- | :--- | :--- | :--- | :--- |
+| `department` | Danh mục phòng ban | N/A | `department_code` | N/A |
+| `employee` | Thông tin nhân viên | `DECIMAL(10, 0)` | `employee_code` | FK: `department_code` |
+| `payroll_detail` | Chi tiết lương tháng 10 | `DECIMAL(12, 0)` | `employee_code` | FK: `employee_code` |
 
-File SQL thực hiện tuần tự các bước sau:
+### 2. Script Triển khai Database
 
-* **Tạo Database:** Tạo database có tên `ABC_Company_Payroll`.
-* **Tạo Bảng:** Khởi tạo 3 bảng như mô tả ở trên.
-* **Chèn Dữ liệu:** Chèn toàn bộ dữ liệu gốc từ đề bài vào các bảng.
-* **Tạo Stored Procedure (SP):** Tạo SP có tên `sp_calculate_department_salary` để thực hiện yêu cầu tính toán.
+Script thực hiện tạo Database (`ABC_Company_Payroll`), tạo 3 bảng chuẩn hóa, và chèn đầy đủ dữ liệu gốc.
 
-### 3. Stored Procedure (Yêu cầu 3)
+### 3. Stored Procedure (`sp_calculate_department_salary`)
 
-Thủ tục lưu trữ `sp_calculate_department_salary` được viết để:
-* Tính **Tổng Lương Gộp** (`SUM(gross_salary)`).
-* Gom nhóm theo **Mã Phòng Ban** (`GROUP BY department_code`).
-* Sắp xếp kết quả theo **Mã Phòng Ban Tăng Dần** (`ORDER BY department_code ASC`).
+Thủ tục lưu trữ này được tạo để:
+* Tính **Tổng Lương Cơ Bản, Lương Gộp, và Lương Thực Nhận** theo từng phòng ban.
+* Gom nhóm theo **`department_code`**.
+* Sắp xếp kết quả theo **Mã Phòng Ban Tăng Dần**.
 
-### 4. Kiểm tra Kết quả
+---
 
-Cuối file script bao gồm các lệnh `EXEC` và `SELECT` để kiểm tra:
-* `EXEC sp_calculate_department_salary;` (Kiểm tra kết quả tổng lương).
-* Các lệnh `SELECT *` và `JOIN` để xác nhận dữ liệu đã chèn đúng và các quan hệ hoạt động chính xác.
+## PHẦN 2: ✨ Các Tính Năng Bổ Sung & Tác Dụng
+
+Phần này mô tả các tính năng vượt trội được tích hợp vào script.
+
+| Tính năng bổ sung | Tác dụng |
+| :--- | :--- |
+| 🧑‍💻 **Bảng `department` riêng biệt** | Đảm bảo **tính toàn vẹn tham chiếu** (Referential Integrity) và quản lý phòng ban hiệu quả hơn. |
+| 🔄 **Khả năng chạy lại Script (Re-runnable)** | Sử dụng các lệnh **`IF EXISTS... DROP`** để script có thể chạy lại nhiều lần mà không gây lỗi xung đột đối tượng (ví dụ: `DROP TABLE employee` trước khi `CREATE`). |
+| 📊 **Định dạng Quốc tế Ổn định** | Áp dụng giải pháp **`FORMAT` và `REPLACE`** để ép buộc hiển thị **dấu phẩy (`,`)** ngăn cách hàng nghìn theo chuẩn quốc tế, loại bỏ sự phụ thuộc vào cài đặt locale của máy chủ. |
+| 📈 **Mở rộng tính năng SP** | Mở rộng SP để trả về tổng hợp tất cả **3 cột lương** (Basic, Gross, Net) thay vì chỉ một cột như yêu cầu tối thiểu, cung cấp báo cáo toàn diện. |
+
+---
 
 ## 🚀 Hướng dẫn Chạy Code
 
-Để triển khai giải pháp:
-
 1.  Mở file `abc_payroll_solution.sql` trong **SQL Server Management Studio (SSMS)**.
-2.  Chạy (Execute) toàn bộ script.
+2.  Chạy (Execute) toàn bộ script để triển khai Database và xem kết quả.
 
 ---
-*Đỗ Khắc Gia Khoa - FTH00042 - T2508M - Aptech*
+*Prepared by: **Đỗ Khắc Gia Khoa** - Student ID: **FTH00042** - Class: **T2508M** - Center: **Aptech***
