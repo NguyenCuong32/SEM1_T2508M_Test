@@ -2,8 +2,8 @@
 
 Practical Exam Project for **PHP Development with Laravel Framework** (PHPL - SET02).
 
-Student Name: Nguyen Tran Xuan Cuong 
-Student ID: FTH00062 
+Student Name: Nguyen Tran Xuan Cuong - 
+Student ID: FTH00062 - 
 Date: 09/01/2026
 
 ## Project Description
