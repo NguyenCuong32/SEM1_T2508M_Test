@@ -4,7 +4,7 @@
     <title>V_Store - Add New</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .v-header { background-color: #e67e22; color: white; padding: 15px; text-align: center; margin-bottom: 20px; }
+        .v-header { background-color: #e40707ff; color: white; padding: 15px; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow">
-                    <div class="card-header bg-warning text-dark"><strong>Add New Item</strong></div>
+                    <div class="card-header bg-danger text-dark"><strong>Add New Item</strong></div>
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -46,7 +46,7 @@
                                 <textarea name="note" class="form-control" rows="2">{{ old('note') }}</textarea>
                             </div>
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-success">Save Item</button>
+                                <button type="submit" class="btn btn-dark">Save Item</button>
                                 <a href="{{ route('items.index') }}" class="btn btn-outline-secondary">Back to List</a>
                             </div>
                         </form>

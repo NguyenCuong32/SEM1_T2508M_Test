@@ -4,7 +4,7 @@
     <title>V_Store - Edit Item</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .v-header { background-color: #e67e22; color: white; padding: 15px; text-align: center; margin-bottom: 20px; }
+        .v-header { background-color: #ff0000ff; color: white; padding: 15px; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -12,8 +12,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card shadow border-primary">
-                    <div class="card-header bg-primary text-white"><strong>Edit Item: {{ $item->item_name }}</strong></div>
+                <div class="card shadow border-dark">
+                    <div class="card-header bg-dark text-white"><strong>Edit Item: {{ $item->item_name }}</strong></div>
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -47,7 +47,7 @@
                                 <textarea name="note" class="form-control" rows="2">{{ $item->note }}</textarea>
                             </div>
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">Update Changes</button>
+                                <button type="submit" class="btn btn-dark">Update Changes</button>
                                 <a href="{{ route('items.index') }}" class="btn btn-outline-secondary">Cancel</a>
                             </div>
                         </form>
