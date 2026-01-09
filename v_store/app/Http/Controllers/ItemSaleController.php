@@ -52,11 +52,11 @@ class ItemSaleController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'item_code' => [
+            'item_code' => [ # 1.2
                 'required',
                 'regex:/^[a-zA-Z0-9 ]+$/'
             ],
-            'item_name' => [
+            'item_name' => [ # 1.2
                 'required',
                 'regex:/^[a-zA-Z0-9 ]+$/'
             ],
