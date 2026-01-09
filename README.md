@@ -1,4 +1,4 @@
-# V_Store Items - Giải Bài Thi (SET02)
+# V_Store Items Premium
 
 **Student Name:** Đỗ Khắc Gia Khoa
 **Class:** T2508M
