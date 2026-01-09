@@ -1,0 +1,148 @@
+/* ===== Item Form ===== */
+.item-form {
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.item-form .form-control {
+  border-radius: 6px;
+}
+
+.item-form .form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25);
+}
+
+.item-form button {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Item Table ===== */
+.item-table {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.item-table th,
+.item-table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.item-table thead th {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.item-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.edit-icon {
+  cursor: pointer;
+  color: #0d6efd;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.edit-icon:hover {
+  color: #084298;
+  transform: scale(1.15);
+}
+/* ===== Table Wrapper ===== */
+.item-table {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Table ===== */
+.item-table table {
+  margin-bottom: 0;
+}
+
+.item-table th,
+.item-table td {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+/* Header */
+.item-table thead th {
+  background-color: #dc3545;
+  color: #ffffff;
+  font-weight: 600;
+  border-color: #dee2e6;
+}
+
+/* Row hover */
+.item-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.item-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* ===== Edit Icon ===== */
+.edit-icon {
+  cursor: pointer;
+  color: #0d6efd;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.edit-icon:hover {
+  color: #084298;
+  transform: scale(1.2);
+}
+/* =========================
+   ITEM FORM
+========================= */
+.item-form {
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Input */
+.item-form .form-control {
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-form .form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25);
+}
+
+/* Space giữa các input trên mobile */
+@media (max-width: 768px) {
+  .item-form .form-control {
+    margin-bottom: 8px;
+  }
+}
+
+/* Submit button */
+.item-form button {
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 10px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.item-form button:hover {
+  transform: translateY(-1px);
+}
+
+/* Edit mode highlight */
+.item-form.editing {
+  border-left: 6px solid #0d6efd;
+}

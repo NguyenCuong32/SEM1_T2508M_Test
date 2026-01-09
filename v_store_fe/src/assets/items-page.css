@@ -1,0 +1,52 @@
+/* ===== Page Layout ===== */
+.items-page {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===== Table Wrapper ===== */
+.items-table-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Table ===== */
+.items-table {
+  margin-bottom: 0;
+}
+
+.items-table th,
+.items-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.items-table thead th {
+  background-color: #dc3545;
+  color: #fff;
+  font-weight: 600;
+}
+
+.items-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.items-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* ===== Action Button ===== */
+.items-table .btn {
+  padding: 4px 10px;
+  font-size: 0.85rem;
+}
+
+/* ===== Empty state (sẵn dùng) ===== */
+.items-empty {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}

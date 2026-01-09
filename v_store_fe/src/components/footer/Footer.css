@@ -1,0 +1,15 @@
+
+.footer-container {
+  background-color: #CC7360; /* Màu cam đất giống ảnh */
+  color: white; /* Chữ màu trắng */
+  
+  padding: 12px 20px; /* Khoảng cách lề trong */
+  border-radius: 6px; /* Bo tròn 4 góc */
+  
+  font-family: sans-serif;
+  font-weight: 600; /* Chữ hơi đậm */
+  font-size: 14px; /* Cỡ chữ vừa phải */
+  
+  /* Đảm bảo footer không bị dính sát vào nội dung bên trên */
+  margin-top: 20px; 
+}
