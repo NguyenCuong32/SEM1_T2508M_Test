@@ -15,6 +15,8 @@ export default function Home() {
         }).then((e) => e.json()).then((e) => setList(e.data))
     }, []);
 
+    if(!list) return;
+
     const delItem = (id) => {
         fetch("http://127.0.0.1:8000/api/item", {
             method: "POST",

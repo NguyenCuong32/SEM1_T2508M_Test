@@ -1,5 +1,4 @@
 export default function AddNew() {
-
     return (
         <form manhdev-api="true" className="p-2" action="/api/item" method="POST" swal_success="none" time_load="0" type="add-new">
 
