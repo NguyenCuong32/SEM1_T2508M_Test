@@ -1,79 +1,42 @@
 import { useEffect, useState, useCallback } from "react";
 import api from "../api/api";
 import ItemForm from "../components/Items";
+import ItemTable from "../components/ItemTable"; // Import Table
 import '../assets/items-page.css';
 
-export default function Items() {
+export default function ItemsPage() {
   const [items, setItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
 
+  // --- 1. Khai báo loadItems (Dùng useCallback để tránh lỗi lặp vô hạn) ---
   const loadItems = useCallback(async () => {
-    const res = await api.get("/items");
-    setItems(res.data);
-    setEditingItem(null);
-  }, []);
+    try {
+      const res = await api.get("/items");
+      // Sắp xếp item mới nhất lên đầu (nếu muốn)
+      const sortedItems = res.data.sort((a, b) => b.id - a.id);
+      setItems(sortedItems);
+      setEditingItem(null); // Reset trạng thái edit
+    } catch (error) {
+      console.error("Failed to load items:", error);
+    }
+  }, []); // Dependency array rỗng vì api và setState là ổn định
 
+ 
   useEffect(() => {
-  const loadItems = async () => {
-    const res = await api.get("/items");
-    setItems(res.data);
-    setEditingItem(null);
-  };
-
-  loadItems();
-}, []);
-
-
+    loadItems();
+  }, [loadItems]);
 
   return (
-  <div className="container mt-4 items-page">
-    <ItemForm editingItem={editingItem} onSuccess={loadItems} />
+    <div className="container mt-4 items-page">
+      {/* Truyền hàm loadItems vào onSuccess để Form gọi lại sau khi thêm/sửa xong */}
+      <ItemForm editingItem={editingItem} onSuccess={loadItems} />
 
-    <div className="items-table-wrapper mt-4">
-      <table className="table table-bordered items-table">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Qty</th>
-            <th>Expired</th>
-            <th>Note</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {items.length === 0 ? (
-            <tr>
-              <td colSpan="7" className="items-empty">
-                No items found
-              </td>
-            </tr>
-          ) : (
-            items.map((i, index) => (
-              <tr key={i.id}>
-                <td>{index + 1}</td>
-                <td>{i.item_code}</td>
-                <td>{i.item_name}</td>
-                <td>{i.quantity}</td>
-                <td>{i.expired_date}</td>
-                <td>{i.note}</td>
-                <td>
-                  <button
-                    className="btn btn-sm btn-primary"
-                    onClick={() => setEditingItem(i)}
-                  >
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+      <div className="items-table-wrapper mt-4">
+        <ItemTable 
+          items={items} 
+          onEdit={(item) => setEditingItem(item)} 
+        />
+      </div>
     </div>
-  </div>
-);
-
+  );
 }

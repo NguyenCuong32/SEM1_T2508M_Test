@@ -12,7 +12,7 @@ class ItemSale extends Model
         'item_code',
         'item_name',
         'quantity',
-        'expried_date',
+        'expired_date', // Đã sửa lỗi chính tả từ 'expried_date'
         'note',
     ];
 }

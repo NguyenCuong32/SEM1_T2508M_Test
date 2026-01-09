@@ -11,33 +11,27 @@ class ItemSaleController extends Controller
 {
     public function index()
     {
-        // Khi trả về frontend, nếu muốn format lại ngày hiển thị, 
-        // bạn nên xử lý trong Model (accessor) hoặc Resource, 
-        // nhưng ở đây return raw data thì nó sẽ trả về Y-m-d chuẩn của MySQL.
+       
         return ItemSale::orderBy('id', 'desc')->get();
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'item_code' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/'],
-            'item_name' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/'],
-            'quantity' => 'numeric',
-            // SỬA 1: Dùng date_format:d/m/Y để bắt buộc frontend gửi đúng định dạng ngày VN
-            'expired_date' => 'nullable|date_format:d/m/Y', 
-            'note' => 'nullable|string'
-        ]);
+    // Trong ItemSaleController.php
 
-        // SỬA 2: Chuyển đổi từ dd/mm/yyyy sang yyyy-mm-dd để lưu vào MySQL
-        if (!empty($data['expired_date'])) {
-            $data['expired_date'] = Carbon::createFromFormat('d/m/Y', $data['expired_date'])->format('Y-m-d');
-        }
+public function store(Request $request)
+{
+    $data = $request->validate([
+        'item_code' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/'],
+        'item_name' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/'],
+        'quantity' => 'numeric',
+        // SỬA: Đổi d/m/Y thành Y-m-d
+        'expired_date' => 'nullable|date_format:Y-m-d', 
+        'note' => 'nullable|string'
+    ]);
 
-        // Lưu ý: Mình đã xóa dòng gán lỗi chính tả 'expried_date'. 
-        // Hãy đảm bảo cột trong database của bạn tên là 'expired_date'.
 
-        return ItemSale::create($data);
-    }
+
+    return ItemSale::create($data);
+}
 
     public function update(Request $request, $id)
     {
