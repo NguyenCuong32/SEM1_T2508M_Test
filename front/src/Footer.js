@@ -1,0 +1,7 @@
+export default function Footer() {
+    return (
+        <footer>
+            Số 8, Tôn Thất Thuyết, Cầu Giấy, Hà Nội
+        </footer>
+    );
+}
